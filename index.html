@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andy & Ely - Missione Segreta</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:linear-gradient(135deg,#160d20,#32152d,#120b19);
+  color:white;
+  min-height:100vh;
+}
+
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:25px 18px 50px;
+  text-align:center;
+}
+
+.logo{
+  font-size:55px;
+  margin-top:15px;
+}
+
+h1{
+  font-size:34px;
+  margin:8px 0;
+}
+
+.subtitle{
+  font-size:18px;
+  opacity:.9;
+  margin-bottom:30px;
+}
+
+.card{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:25px;
+  padding:22px;
+  margin:18px 0;
+  backdrop-filter:blur(10px);
+}
+
+.mission{
+  background:white;
+  color:#241426;
+  border-radius:20px;
+  padding:20px;
+  margin:15px 0;
+  text-align:left;
+}
+
+.mission h2{
+  margin-top:0;
+  color:#8d285e;
+}
+
+button{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  padding:15px;
+  margin-top:10px;
+  font-size:17px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.primary{
+  background:#e83e83;
+  color:white;
+}
+
+.secondary{
+  background:#fff;
+  color:#281426;
+}
+
+.hidden{
+  display:none;
+}
+
+.points{
+  font-size:22px;
+  font-weight:bold;
+  margin:15px;
+}
+
+input[type=file]{
+  width:100%;
+  padding:12px;
+  background:white;
+  color:#222;
+  border-radius:12px;
+}
+
+.success{
+  background:#174d35;
+  padding:15px;
+  border-radius:15px;
+  margin-top:15px;
+}
+
+.small{
+  font-size:13px;
+  opacity:.7;
+  margin-top:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">💍❤️</div>
+
+<h1>Andy & Ely</h1>
+
+<div class="subtitle">
+  MISSIONE SEGRETA
+</div>
+
+<div class="card">
+
+<h2>🎯 Sei stato scelto!</h2>
+
+<p>
+Hai una missione segreta da completare
+durante la festa.
+</p>
+
+<p>
+Nessuna registrazione.<br>
+Nessuna email.<br>
+Nessun dato personale.
+</p>
+
+<button class="primary" onclick="inizia()">
+🚀 INIZIA LA MISSIONE
+</button>
+
+</div>
+
+<div id="gioco" class="hidden">
+
+<div class="points">
+⭐ Punti: <span id="punti">0</span>
+</div>
+
+<div id="missioni">
+
+<div class="mission">
+<h2>📸 Missione 1</h2>
+<p>
+Fai una foto insieme alla persona
+più scatenata della festa!
+</p>
+<button class="primary"
+onclick="completa(1)">
+MISSIONE COMPLETATA
+</button>
+</div>
+
+<div class="mission">
+<h2>😂 Missione 2</h2>
+<p>
+Trova qualcuno che faccia una faccia
+buffissima e immortalalo!
+</p>
+<button class="primary"
+onclick="completa(2)">
+MISSIONE COMPLETATA
+</button>
+</div>
+
+<div class="mission">
+<h2>💃 Missione 3</h2>
+<p>
+Fai un video di almeno 5 secondi
+di qualcuno che balla.
+</p>
+<button class="primary"
+onclick="completa(3)">
+MISSIONE COMPLETATA
+</button>
+</div>
+
+<div class="mission">
+<h2>❤️ Missione 4</h2>
+<p>
+Fai una foto con gli sposi
+senza dirgli che è una missione!
+</p>
+<button class="primary"
+onclick="completa(4)">
+MISSIONE COMPLETATA
+</button>
+</div>
+
+<div class="mission">
+<h2>🎤 Missione 5</h2>
+<p>
+Canta insieme ad almeno un'altra
+persona una canzone famosa.
+</p>
+<button class="primary"
+onclick="completa(5)">
+MISSIONE COMPLETATA
+</button>
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>📤 Invia il tuo ricordo</h2>
+
+<p>
+Puoi scegliere una foto o un video
+dal tuo telefono e condividerlo.
+</p>
+
+<input
+type="file"
+id="file"
+accept="image/*,video/*"
+>
+
+<button class="secondary"
+onclick="condividi()">
+📲 CONDIVIDI FOTO / VIDEO
+</button>
+
+</div>
+
+<div id="risultato" class="success hidden">
+🎉 Missione completata!
+<br><br>
+Hai guadagnato <b>10 punti</b>.
+</div>
+
+<button class="primary"
+onclick="condividiRisultato()">
+🏆 CONDIVIDI IL MIO PUNTEGGIO
+</button>
+
+</div>
+
+<div class="small">
+Andy & Ely • Missione Segreta<br>
+Sistema per giochi e missioni degli invitati
+</div>
+
+</div>
+
+<script>
+
+let punti = 0;
+
+function inizia(){
+
+ document.getElementById("gioco")
+ .classList.remove("hidden");
+
+ window.scrollTo({
+   top:document.getElementById("gioco").offsetTop,
+   behavior:"smooth"
+ });
+
+}
+
+function completa(numero){
+
+ punti += 10;
+
+ document.getElementById("punti")
+ .innerText = punti;
+
+ document.getElementById("risultato")
+ .classList.remove("hidden");
+
+ navigator.vibrate?.(100);
+
+}
+
+async function condividi(){
+
+ const fileInput =
+ document.getElementById("file");
+
+ if(!fileInput.files.length){
+
+   alert("Prima scegli una foto o un video ❤️");
+
+   return;
+ }
+
+ const file = fileInput.files[0];
+
+ if(navigator.share){
+
+   try{
+
+     await navigator.share({
+       title:"Missione Segreta - Andy & Ely",
+       text:"Ho completato una missione! ❤️",
+       files:[file]
+     });
+
+   }catch(e){}
+
+ }else{
+
+   alert(
+   "Il tuo telefono non supporta la condivisione diretta. " +
+   "Puoi condividere il file dalla galleria."
+   );
+
+ }
+
+}
+
+async function condividiRisultato(){
+
+ const testo =
+ "🎯 Ho completato una Missione Segreta " +
+ "per Andy & Ely! ❤️\n\n" +
+ "⭐ Punteggio: " + punti + " punti!";
+
+ if(navigator.share){
+
+   try{
+
+     await navigator.share({
+       title:"Missione Segreta",
+       text:testo
+     });
+
+   }catch(e){}
+
+ }else{
+
+   navigator.clipboard?.writeText(testo);
+
+   alert("Risultato copiato! ❤️");
+
+ }
+
+}
+
+</script>
+
+</body>
+  </html>
